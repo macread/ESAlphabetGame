@@ -8,6 +8,8 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+import Results from './results';
+
 const styles = theme => ({
   container: {
     display: 'flex',
@@ -28,14 +30,16 @@ class App extends Component {
       enteredText: '',
       alphabet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
       letters: [],
-      count: [],
+      counts: [],
+      
     }
   }
 
   componentDidMount() {
     //put the alphbet into an array (let the computer do the work)
     const letters = this.state.alphabet.split('');
-    this.setState({letters});
+    let counts = this.state.letters.map(count => count = 0);
+    this.setState({letters, counts});
   }
 
   handleChange(val) {
@@ -46,20 +50,22 @@ class App extends Component {
 
   countLetterOccurances() {
     //initialize the count array
-    let count = this.state.letters.map(count => count = 0);
+    let counts = this.state.letters.map(count => count = 0);
     //put the entered text into an arry
     const letters = this.state.enteredText.split('');
     //now count the letters
     letters.forEach(letter => {
       const idx = this.state.letters.indexOf(letter.toUpperCase());
-      count[idx]++;
+      counts[idx]++;
     });
     //update state so we can display the counts
-    this.setState({count})
+    this.setState({counts})
   }
 
   render() {
     const { classes } = this.props;
+
+    
 
     return (
       <div className="App">
@@ -93,6 +99,8 @@ class App extends Component {
             Count
           </Button>
         </form>
+
+        <Results letters={this.state.letters} counts={this.state.counts} />
         
       </div>
     );
