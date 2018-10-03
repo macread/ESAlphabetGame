@@ -1,5 +1,6 @@
 import React from 'react';
 import {HorizontalBar} from 'react-chartjs-2';
+import 'chartjs-plugin-datalabels';
 
 
 export default function Progress(props){
@@ -9,10 +10,11 @@ export default function Progress(props){
         datasets: [
           {
             label: "Count for each letter",
-            fillColor: "rgba(220,220,220,0.5)",
-            strokeColor: "rgba(220,220,220,0.8)",
-            highlightFill: "rgba(220,220,220,0.75)",
-            highlightStroke: "rgba(220,220,220,1)",
+            // fillColor: "rgba(220,220,220,0.5)",
+            // strokeColor: "rgba(220,220,220,0.8)",
+            // highlightFill: "rgba(220,220,220,0.75)",
+            // highlightStroke: "rgba(220,220,220,1)",
+            backgroundColor: "#1D751D",
             data: props.counts
           }
         ]
@@ -25,9 +27,16 @@ export default function Progress(props){
                 beginAtZero: false,
                 stepSize: 1,
                 stepValue: 1,
-                max: 3
-            }
+                }
+                
             }]
+
+        },
+        plugins: {
+            datalabels: {
+               display: true,
+               color: 'white'
+            }
         }
     }
 

@@ -30,8 +30,7 @@ class App extends Component {
       enteredText: '',
       alphabet: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
       letters: [],
-      counts: [],
-      
+      counts: []
     }
   }
 
@@ -56,7 +55,9 @@ class App extends Component {
     //now count the letters
     letters.forEach(letter => {
       const idx = this.state.letters.indexOf(letter.toUpperCase());
-      counts[idx]++;
+      if (idx>=0) {
+        counts[idx]++;
+      }
     });
     //update state so we can display the counts
     this.setState({counts})
@@ -100,7 +101,14 @@ class App extends Component {
           </Button>
         </form>
 
-        <Results letters={this.state.letters} counts={this.state.counts} />
+        {Math.max(...this.state.counts) > 0 ? //only display the graphs if there counts are available
+          <Results 
+            letters={this.state.letters} 
+            counts={this.state.counts} 
+          />
+          :
+          null
+        }
         
       </div>
     );
